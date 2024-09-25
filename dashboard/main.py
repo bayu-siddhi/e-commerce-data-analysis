@@ -172,7 +172,6 @@ if __name__ == '__main__':
     max_date = dataset_1_df["order_purchase_timestamp"].max()
 
     with st.sidebar:
-        # Menambahkan logo perusahaan
         st.image("https://streamlit.io/images/brand/streamlit-logo-primary-colormark-darktext.png")
 
         # Mengambil start_date & end_date dari date_input
@@ -185,12 +184,11 @@ if __name__ == '__main__':
 
         st.caption("Use light mode for best visualization. Change from \"⋮\" → \"Settings\" → \"Theme\"")
 
+    # Melakukan filter tanggal pada 3 dataset utama
     main_1_df = dataset_1_df[(dataset_1_df["order_purchase_timestamp"] >= str(start_date))
                              & (dataset_1_df["order_purchase_timestamp"] <= str(end_date))]
-
     main_2_df = dataset_2_df[(dataset_2_df["order_purchase_timestamp"] >= str(start_date))
                              & (dataset_2_df["order_purchase_timestamp"] <= str(end_date))]
-
     main_3_df = order_reviews_df[(order_reviews_df["review_creation_date"] >= str(start_date))
                                  & (order_reviews_df["review_creation_date"] <= str(end_date))]
 
@@ -219,7 +217,6 @@ if __name__ == '__main__':
     with tab1:
         st.subheader('Monthly Orders and Revenue')
 
-        # Kolom Total Order dan Total Revenue
         col1, col2 = st.columns(2)
         with col1:
             total_orders = main_1_df["order_id"].nunique()
@@ -228,7 +225,6 @@ if __name__ == '__main__':
             total_revenue = format_currency(main_1_df["payment_value"].sum(), "BRL", locale="pt_BR")
             st.metric("Total Revenue", value=total_revenue)
 
-        # Line chart jumlah pesanan setiap bulan
         fig, ax = plt.subplots(figsize=(16, 8))
         ax.plot(
             monthly_orders_df["order_month"],
@@ -243,7 +239,6 @@ if __name__ == '__main__':
 
         st.pyplot(fig)
 
-        # Line chart total penghasilan setiap bulan
         fig, ax = plt.subplots(figsize=(16, 8))
         ax.plot(
             monthly_orders_df["order_month"],
@@ -263,7 +258,6 @@ if __name__ == '__main__':
 
         st.subheader('Best Number of Orders by City and State')
 
-        # Kolom Total Order di Kota dan Negara Bagian
         col1, col2 = st.columns(2)
         with col1:
             best_total_order_city_idx = customer_order_revenue_city["order"].idxmax()
@@ -312,7 +306,6 @@ if __name__ == '__main__':
 
         st.subheader('Best Total Revenue by City and State')
 
-        # Kolom Total Revenue di Kota dan Negara Bagian
         col1, col2 = st.columns(2)
         with col1:
             best_total_revenue_city_idx = customer_order_revenue_city["revenue"].idxmax()
@@ -362,7 +355,6 @@ if __name__ == '__main__':
     with tab2:
         st.subheader("Best Performing Product Category by Number of Orders")
 
-        # Kolom Total Order dan Total Revenue
         col1, col2 = st.columns(2)
         best_orders_category_idx = sum_order_items_df["count"].idxmax()
         with col1:
@@ -404,7 +396,6 @@ if __name__ == '__main__':
 
         st.subheader("Best Performing Product Category by Total Revenue")
 
-        # Kolom Total Order dan Total Revenue
         col1, col2 = st.columns(2)
         best_revenue_category_idx = sum_order_items_df["revenue"].idxmax()
         with col1:
@@ -503,7 +494,6 @@ if __name__ == '__main__':
             not_satisfied_value = "{}%".format(round(not_satisfied_value * 100, 2))
             st.metric("Percentage of dissatisfied (1-3:star:)", value=not_satisfied_value)
 
-        # Menampilakn skor ulasan pengguna sebagai bar chart
         colors = ["#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
         colors[int(customer_scores_df["count"].argmax())] = "#1230AE"
 
@@ -542,7 +532,6 @@ if __name__ == '__main__':
 
         st.caption('There is no customer name, only customer_unique_id')
 
-        # Menampilkan customer_unique_id yang memiliki frequency, monetory, dan recency tertinggi
         colors = ["#1230AE", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 
         st.subheader("By Recency (days)")
