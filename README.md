@@ -13,43 +13,43 @@ Repository ini merupakan proyek akhir dari kelas Dicoding "Belajar Analisis Data
 
 ## Cara Instalasi dan Menjalankan Dashboard
 1. Clone repository ke komputer lokal menggunakan perintah berikut.
-```commandline
-git clone https://github.com/bayu-siddhi/e-commerce-data-analysis.git
-```
+        ```commandline
+        git clone https://github.com/bayu-siddhi/e-commerce-data-analysis.git
+        ```
 
 2. Setelah masuk ke dalam root directory (direktori awal) dari proyek ini di komputer lokal Anda, buat virtual environment (contoh dengan nama `.venv`) untuk meng-install seluruh dependency yang dibutuhkan untuk menjalankan notebook dan dashboard.
-```commandline
-python -m venv .venv
-```
+        ```commandline
+        python -m venv .venv
+        ```
 
 3. Aktifkan virtual environment `.venv` tersebut dengan menjalankan perintah berikut.
-```commandline
-.\.venv\Scripts\activate
-```
+        ```commandline
+        .\.venv\Scripts\activate
+        ```
 
 4. Setelah virtual environment aktif, maka langkah selanjutnya adalah menginstall dependency proyek ini dengan menjalankan perintah berikut.
-```commandline
-pip install -r requirements.txt
-```
+        ```commandline
+        pip install -r requirements.txt
+        ```
 
 5. Setelah seluruh dependency berhasil di-install, maka dashboard dapat dijalankan dengan menggunakan perintah berikut.
-```commandline
-streamlit run .\dashboard\main.py
-```
+        ```commandline
+        streamlit run .\dashboard\main.py
+        ```
 
 ## Cara Alternatif
 Jika langkah nomor 4 dan 5 tidak berhasil dilakukan maka gunakan cara manual untuk memanggil virtual environment menggunakan cara berikut.
 > Pastikan posisi current working directory berada di root (awal) direktori proyek.
 
 4. Alternatif langkah nomor 4.
-```commandline
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
+        ```commandline
+        .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+        ```
 
 5. Alternatif langkah nomor 5.
-```commandline
-.\.venv\Scripts\python.exe -m streamlit run .\dashboard\main.py
-```
+        ```commandline
+        .\.venv\Scripts\python.exe -m streamlit run .\dashboard\main.py
+        ```
 
 ## Screenshots
 
