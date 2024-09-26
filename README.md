@@ -1,5 +1,5 @@
 # Dicoding Final Project: "Learn Data Analysis with Python"
-- `Name`: Bayu Siddhi Mukti
+<img src="images/tab-1.png" alt="Dashboard Tab 1" width="720">
 
 ## Project Description
 This repository is the final project of the Dicoding class "Learn Data Analysis with Python". This project attempts to analyze the E-Commerce Public Dataset data provided by Dicoding or through the source [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) with the title **Brazilian E-Commerce Public Dataset by Olist**. The purpose of this analysis is to explore and get to know the dataset, as well as find some interesting insights from the dataset to answer business questions.
@@ -30,7 +30,7 @@ This repository is the final project of the Dicoding class "Learn Data Analysis 
    pip install -r requirements.txt
    ```
 
-5. After all dependencies have been successfully installed, the dashboard can be run using the following command.
+4. After all dependencies have been successfully installed, the dashboard can be run using the following command.
    ```commandline
    streamlit run .\dashboard\main.py
    ```
@@ -39,22 +39,12 @@ This repository is the final project of the Dicoding class "Learn Data Analysis 
 If steps 4 and 5 do not work in the virtual environment `.venv` in step 3, then use the method of calling the virtual environment manually as follows.
 > Make sure the position of the current working directory is at the root of the project directory.
 
-4. Alternative step number 4.
+1. Alternative step number 4.
    ```commandline
    .\.venv\Scripts\python.exe -m pip install -r requirements.txt
    ```
 
-5. Alternative step number 5.
+2. Alternative step number 5.
    ```commandline
    .\.venv\Scripts\python.exe -m streamlit run .\dashboard\main.py
    ```
-
-## Screenshots
-
-Here are some screenshots of the dashboard that was successfully run.
-
-<img src="images/tab-1.png" alt="Dashboard Tab 1" width="720">
-<img src="images/tab-2.png" alt="Dashboard Tab 2" width="720">
-<img src="images/tab-3.png" alt="Dashboard Tab 3" width="720">
-<img src="images/tab-4.png" alt="Dashboard Tab 4" width="720">
-<img src="images/tab-5.png" alt="Dashboard Tab 5" width="720">
