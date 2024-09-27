@@ -7,7 +7,7 @@ This repository is the final project of the Dicoding class "Learn Data Analysis 
 ## Main Project Structure
 - `./data`: Contains all datasets in `.csv` format used in the `Data_Analysis_Project.ipynb` notebook.
 - `./dashboard`: Contains all files and codes used to build the data analysis dashboard using Streamlit.
-- `Data_Analysis_Project.ipynb`: Interactive Python Notebook (`.ipynb`) file where the entire data analysis process is carried out.
+- `notebook.ipynb`: Interactive Python Notebook (`.ipynb`) file where the entire data analysis process is carried out.
 
 ## Install and Run Dashboard
 1. Clone the repository to the local computer using the following command.

@@ -10,18 +10,18 @@ sns.set_theme(style='dark')
 
 
 def data_path(filename: str) -> str:
-    """Function: Mendapatkan file data"""
+    """Function: Get data file"""
     return os.path.join(DATA_DIRECTORY, filename)
 
 
 def set_datetime_columns(dataframe: pd.DataFrame, datetime_columns: list) -> None:
-    """Procedure: Mengubah tipe data datetiem_columns menjadi datetime"""
+    """Procedure: Change the data type of datetiem_columns to datetime"""
     for column in datetime_columns:
         dataframe[column] = pd.to_datetime(dataframe[column])
 
 
 def create_monthly_orders_df(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe jumlah dan penghasilan setiap bulan"""
+    """Function: Get a dataframe of the amount and income for each month"""
     result_df = dataframe[dataframe["order_status"] == "delivered"]. \
         resample(rule='ME', on='order_purchase_timestamp').agg({
         "order_id": "nunique",
@@ -40,7 +40,7 @@ def create_monthly_orders_df(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_sum_order_items_df(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe jumlah dan penghasilan setiap kategori produk"""
+    """Function: Get a dataframe of the amount and income of each product category"""
     result_df = dataframe.groupby(by="product_category_name_english").agg({
         "product_id": "nunique",
         "price": "sum"
@@ -56,7 +56,7 @@ def create_sum_order_items_df(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_payment_type_df(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe jenis metode pembayaran"""
+    """Function: Get payment method type dataframe"""
     result_df = dataframe["payment_type"].value_counts().sort_values(ascending=False)
     result_df.to_frame()
     result_df = result_df.reset_index()
@@ -64,7 +64,7 @@ def create_payment_type_df(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_payment_installments_df(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe jumlah pengguna cicilan"""
+    """Function: Get dataframe of number of installment users"""
     result_df = dataframe["payment_installments"].value_counts().sort_values(ascending=False)
     result_df.to_frame()
     result_df = result_df.reset_index()
@@ -78,7 +78,7 @@ def create_payment_installments_df(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_customer_order_revenue_city(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe jumlah pesanan dan total revenue setiap kota"""
+    """Function: Get a dataframe of the number of orders and total revenue for each city"""
     result_df = dataframe.groupby(by="customer_city").agg({
         "order_id": "nunique",
         "payment_value": "sum"
@@ -94,7 +94,7 @@ def create_customer_order_revenue_city(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_customer_order_revenue_state(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe jumlah pesanan dan total revenue setiap negara bagian"""
+    """Function: Get a dataframe of the number of orders and total revenue for each state"""
     result_df = dataframe.groupby(by="customer_state").agg({
         "order_id": "nunique",
         "payment_value": "sum"
@@ -110,7 +110,7 @@ def create_customer_order_revenue_state(dataframe: pd.DataFrame) -> pd.DataFrame
 
 
 def create_customer_scores_df(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe skor kepuasan pelanggan"""
+    """Function: Get customer satisfaction score dataframe"""
     result_df = dataframe["review_score"].value_counts()
     result_df.to_frame()
     result_df = result_df.reset_index()
@@ -122,6 +122,7 @@ def create_customer_scores_df(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_satisfied_df(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Function: Get dataframe of number of satisfied/dissatisfied customers"""
     result_df = dataframe.groupby(by="satisfaction")["count"].sum()
     result_df.to_frame()
     result_df = result_df.reset_index()
@@ -130,7 +131,7 @@ def create_satisfied_df(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_rfm_df(dataframe: pd.DataFrame) -> pd.DataFrame:
-    """Function: Mendapatkan dataframe RFM (Recency, Frequency, Monetary)"""
+    """Function: Get RFM (Recency, Frequency, Monetary) dataframe"""
     result_df = dataframe[dataframe["order_status"] == "delivered"].\
         groupby(by="customer_unique_id", as_index=False).agg({
         "order_purchase_timestamp": "max",
@@ -154,17 +155,17 @@ def create_rfm_df(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    # Memuat dataset 1
+    # Loading dataset 1
     dataset_1_df = pd.read_csv(data_path("order_customers_payments_dataset.csv"))
     datetime_colums = ["order_purchase_timestamp", "order_approved_at", "order_delivered_carrier_date",
                        "order_delivered_customer_date", "order_estimated_delivery_date"]
     set_datetime_columns(dataset_1_df, datetime_colums)
 
-    # Memuat dataset 2
+    # Loading dataset 2
     dataset_2_df = pd.read_csv(data_path("orders_order_items_products_category_dataset.csv"))
     set_datetime_columns(dataset_2_df, ["shipping_limit_date"])
 
-    # Memuat dataset 3
+    # Loading dataset 3
     order_reviews_df = pd.read_csv(data_path("order_reviews_dataset.csv"))
     set_datetime_columns(order_reviews_df, ["review_creation_date", "review_answer_timestamp"])
 
@@ -174,7 +175,7 @@ if __name__ == '__main__':
     with st.sidebar:
         st.image("https://streamlit.io/images/brand/streamlit-logo-primary-colormark-darktext.png")
 
-        # Mengambil start_date & end_date dari date_input
+        # Get start_date and end_date from date_input
         start_date, end_date = st.date_input(
             label="Timeframe",
             min_value=min_date,
@@ -184,7 +185,7 @@ if __name__ == '__main__':
 
         st.caption("Use light mode for best visualization. Change from \"⋮\" → \"Settings\" → \"Theme\"")
 
-    # Melakukan filter tanggal pada 3 dataset utama
+    # Perform date filtering on 3 main datasets
     main_1_df = dataset_1_df[(dataset_1_df["order_purchase_timestamp"] >= str(start_date))
                              & (dataset_1_df["order_purchase_timestamp"] <= str(end_date))]
     main_2_df = dataset_2_df[(dataset_2_df["order_purchase_timestamp"] >= str(start_date))
@@ -192,7 +193,7 @@ if __name__ == '__main__':
     main_3_df = order_reviews_df[(order_reviews_df["review_creation_date"] >= str(start_date))
                                  & (order_reviews_df["review_creation_date"] <= str(end_date))]
 
-    # Menyiapkan berbagai dataframe
+    # Preparing various dataframes
     monthly_orders_df = create_monthly_orders_df(main_1_df)
     sum_order_items_df = create_sum_order_items_df(main_2_df)
     payment_type_df = create_payment_type_df(main_1_df)
